@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Gold Price Prediction AI</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:#0f172a;
+color:white;
+text-align:center;
+padding:50px;
+}
+
+.container{
+background:#1e293b;
+padding:30px;
+border-radius:15px;
+width:400px;
+margin:auto;
+box-shadow:0 0 15px rgba(0,0,0,0.5);
+}
+
+h1{
+color:#facc15;
+}
+
+.card{
+background:#334155;
+padding:15px;
+margin:10px;
+border-radius:10px;
+}
+
+button{
+padding:10px 20px;
+background:#facc15;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Gold Price Prediction AI</h1>
+
+<div class="card">
+Predicted GLD Price (USD)
+<h2 id="usd">--</h2>
+</div>
+
+<div class="card">
+Predicted Price in INR
+<h2 id="inr">--</h2>
+</div>
+
+<button onclick="getPrediction()">Get Prediction</button>
+
+</div>
+
+<script>
+
+async function getPrediction(){
+
+try{
+
+const response = await fetch("http://127.0.0.1:8000/predict-live");
+
+const data = await response.json();
+
+document.getElementById("usd").innerText =
+data.predicted_GLD_price_usd.toFixed(2);
+
+document.getElementById("inr").innerText =
+data.predicted_GLD_price_inr.toFixed(2);
+
+}
+catch(error){
+
+alert("API not running or connection error");
+
+console.log(error);
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
